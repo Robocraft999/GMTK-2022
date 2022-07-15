@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu]
 public class ActionType : ScriptableObject
 {
-    string name;
-    int cost;
+    public string name;
+    public int cost;
 }
