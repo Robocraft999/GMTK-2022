@@ -12,15 +12,16 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData data)
     {
-        transform.localPosition += new Vector3(data.delta.x, data.delta.y) / transform.lossyScale.x;
-
-        transform.SetParent(canvas.transform, true);
+        transform.SetParent(canvas.transform, false);
         transform.SetAsLastSibling();
+
+        transform.position = Input.mousePosition;
     }
 
     public void OnDrag(PointerEventData data)
     {
-        transform.localPosition += new Vector3(data.delta.x, data.delta.y) / transform.lossyScale.x;
+        //transform.localPosition += new Vector3(data.delta.x, data.delta.y) / transform.lossyScale.x;
+        transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData data)
@@ -34,24 +35,20 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             {
                 if (!slot.SlotFilled)
                 {
-                    if (currentSlot) currentSlot.currentItem = null;
+                    currentSlot.CurrentItem = null;
                     currentSlot = slot;
-                    currentSlot.currentItem = this;
+                    currentSlot.CurrentItem = this;
                 }
                 break;
             }
         }
         transform.SetParent(currentSlot.transform);
+        transform.SetAsLastSibling();
         transform.localPosition = Vector3.zero;
     }
     void Start()
     {
         canvas = GetComponentInParent<Canvas>();
         graphicRaycaster = canvas.GetComponent<GraphicRaycaster>();
-    }
-
-    void Update()
-    {
-        
     }
 }
