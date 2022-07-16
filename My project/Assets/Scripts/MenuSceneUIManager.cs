@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class MenuSceneUIManager : MonoBehaviour
 {
@@ -22,8 +24,16 @@ public class MenuSceneUIManager : MonoBehaviour
     }
 
     //TODO rename
-    public void OnButtonPressed()
+    public void buttonPressed_start()
     {
-        GameManager.Instance.SwitchScene(GameState.CLASH);
+        GameManager.Instance.SwitchScene(GameState.BUILDING);
     }
+
+    public void buttonPressed_exit()
+    {
+        Debug.Log("bye");
+        Application.Quit();
+    }
+
+
 }

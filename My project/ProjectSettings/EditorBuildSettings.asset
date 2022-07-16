@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Building.unity
     guid: 97b0cba156a60e2428d44e39b9f5feaa
+  - enabled: 1
+    path: Assets/Scenes/Clash.unity
+    guid: db1382c3159d33c41b8b7fd5dc84eb54
   m_configObjects: {}
