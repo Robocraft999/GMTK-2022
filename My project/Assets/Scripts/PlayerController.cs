@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public void applyForce(Vector2 force)
     {
         rb.AddForce(force);
+        print("Force: " + force);
     }
 
     public void attack()
