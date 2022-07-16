@@ -15,7 +15,7 @@ public class ScoreMaster : MonoBehaviour
         get => score1;
         set {
             score1 = value;
-            if (scoreTextP1) scoreTextP1.text = ""+value;
+            if (scoreTextP1) scoreTextP1.text = "" + value;
         }
     }
 
