@@ -106,7 +106,10 @@ public class GameManager : MonoBehaviour
         {
             if(slot.CurrentItem != null)
             {
-                ClashSceneUIManager.Instance.Players.ForEach();
+                foreach(PlayerController player in ClashSceneUIManager.Instance.Players)
+                {
+
+                }
             }
         }
     }

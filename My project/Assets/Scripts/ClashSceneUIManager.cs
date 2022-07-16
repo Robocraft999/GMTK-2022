@@ -8,6 +8,8 @@ public class ClashSceneUIManager : MonoBehaviour
 {
     public static ClashSceneUIManager Instance { get; private set; }
 
+    public List<PlayerController> Players { get; private set; }
+
     public void Awake()
     {
         Instance = this;
