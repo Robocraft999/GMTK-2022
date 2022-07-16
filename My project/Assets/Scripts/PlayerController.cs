@@ -21,4 +21,9 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(force);
     }
+
+    public void attack()
+    {
+        print("ATTACKEEEEEEEEE");
+    }
 }

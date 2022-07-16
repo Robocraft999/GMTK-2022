@@ -108,7 +108,9 @@ public class GameManager : MonoBehaviour
             {
                 foreach(PlayerController player in ClashSceneUIManager.Instance.Players)
                 {
-
+                    ActionType type = ((ActionItem)slot.CurrentItem).Type;
+                    if (type.applyForce) player.applyForce(type.force);
+                    if (type.attack) player.attack();
                 }
             }
         }
