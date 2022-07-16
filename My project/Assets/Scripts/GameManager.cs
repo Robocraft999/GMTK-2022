@@ -81,15 +81,33 @@ public class GameManager : MonoBehaviour
     IEnumerator Turn()
     {
         int turns = 0;
+        yield return new WaitForSeconds(1);
+        ClashSceneUIManager.Instance.InitPlayers(SlotsBuildingPlayer, SlotsBuildingAI);
         while (true)
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(0.3f);
+
+            PlayerController player1 = ClashSceneUIManager.Instance.Players[0].Key;
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = Camera.main.nearClipPlane;
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector3 dist = worldPosition - player1.transform.position;
+            print(dist);
+
+            if (Input.GetMouseButton(0))
+            {
+                //player1.applyForce(dist * 30);
+            }
+            
+                
             int input = random.Next(SlotAmount);
+
+            print(input);
 
             PerformActions(input);
 
             turns++;
-            if(turns == 10)
+            if(turns == 20)
             {
                 break;
             }
@@ -98,27 +116,27 @@ public class GameManager : MonoBehaviour
 
     private void PerformActions(int input)
     {
-        List<ActionSlot> slots = new List<ActionSlot>();
-        slots.AddRange(SlotsBuildingPlayer);
-        slots.AddRange(SlotsBuildingAI);
-
-        foreach (ActionSlot slot in slots.Where(slot => slot.slotId == input))
+        foreach(var kvp in ClashSceneUIManager.Instance.Players)
         {
-            if(slot.CurrentItem != null)
-            {
-                foreach(PlayerController player in ClashSceneUIManager.Instance.Players)
-                {
-                    ActionType type = ((ActionItem)slot.CurrentItem).Type;
-                    if (type.applyForce) player.applyForce(type.force);
-                    if (type.attack) player.attack();
-                }
-            }
+            PerformAction(kvp.Key, input);
+        }
+    }
+
+    private void PerformAction(PlayerController player, int input)
+    {
+        List<ActionSlot> slots = ClashSceneUIManager.Instance.Players.Where(kvp => kvp.Key == player).ToList()[0].Value;
+        foreach (ActionSlot slot in slots.Where(slot => slot.slotId == input).Where(slot => (object)slot.CurrentItem != null))
+        {
+            ActionType type = ((ActionItem)slot.CurrentItem).Type;
+            if (type.applyForce) player.applyForce(type.force);
+            if (type.attack) player.attack();
         }
     }
 
     private void InitActions(int amount)
     {
         SlotsBuildingPlayer = new List<ActionSlot>();
+        SlotsBuildingAI = new List<ActionSlot>();
         Actions = new List<ActionItem>();
         for (int i = 0; i < amount; i++)
         {
@@ -136,7 +154,6 @@ public class GameManager : MonoBehaviour
     //Util functions
     public void SwitchScene(GameState newState)
     {
-        State = newState;
         switch (newState)
         {
             case GameState.MENU:
@@ -152,6 +169,7 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("Shop");
                 break;
         }
-        
+        State = newState;
+
     }
 }

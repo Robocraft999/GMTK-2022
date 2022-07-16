@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class ClashSceneUIManager : MonoBehaviour
 {
     public static ClashSceneUIManager Instance { get; private set; }
 
-    public List<PlayerController> Players { get; private set; }
+    public List<KeyValuePair<PlayerController, List<ActionSlot>>> Players { get; private set; }
 
     public void Awake()
     {
@@ -22,6 +23,14 @@ public class ClashSceneUIManager : MonoBehaviour
 
     private void InitClashScene()
     {
+        
+    }
 
+    public void InitPlayers(List<ActionSlot> player1, List<ActionSlot> player2)
+    {
+        PlayerController[] players = FindObjectsOfType<PlayerController>();
+        Players = new List<KeyValuePair<PlayerController, List<ActionSlot>>>();
+        Players.Add(new KeyValuePair<PlayerController, List<ActionSlot>>(players[0], player1));
+        Players.Add(new KeyValuePair<PlayerController, List<ActionSlot>>(players[1], player2));
     }
 }

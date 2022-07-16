@@ -16,4 +16,4 @@ MonoBehaviour:
   Cost: 0
   attack: 0
   block: 0
-  force: {x: 0, y: 5}
+  force: {x: 0, y: 400}
