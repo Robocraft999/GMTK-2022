@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,14 +29,18 @@ public class GameManager : MonoBehaviour
 
     public List<ActionType> ActionTypes;
 
-    public List<ActionSlot> Slots_Building { get; set; }
+    public List<ActionSlot> SlotsBuildingPlayer { get; set; }
+    public List<ActionSlot> SlotsBuildingAI { get; set; }
+    public int SlotAmount { get; private set; }
     public List<ActionItem> Actions { get; set; }
+
+    
 
     public void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
@@ -49,37 +54,72 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         m_state = GameState.MENU;
+        OnStateChange += StartGameLoop;
 
-        InitActions(6);
-        gameloop = Turn();
+        SlotAmount = 6;
+        InitActions(SlotAmount);
     }
 
     void Update()
     {
-        if(State == GameState.CLASH)
+
+    }
+
+    void StartGameLoop(GameState oldState, GameState newState)
+    {
+        if(newState == GameState.CLASH)
         {
+            gameloop = Turn();
             StartCoroutine(gameloop);
+        }
+        else if(oldState == GameState.CLASH)
+        {
+            StopCoroutine(gameloop);
         }
     }
 
     IEnumerator Turn()
     {
+        int turns = 0;
         while (true)
         {
-            yield return new WaitForSeconds(5);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(3);
+            int input = random.Next(SlotAmount);
+
+            PerformActions(input);
+
+            turns++;
+            if(turns == 10)
+            {
+                break;
+            }
+        }
+    }
+
+    private void PerformActions(int input)
+    {
+        List<ActionSlot> slots = new List<ActionSlot>();
+        slots.AddRange(SlotsBuildingPlayer);
+        slots.AddRange(SlotsBuildingAI);
+
+        foreach (ActionSlot slot in slots.Where(slot => slot.slotId == input))
+        {
+            if(slot.CurrentItem != null)
+            {
+                ClashSceneUIManager.Instance.Players.ForEach();
+            }
         }
     }
 
     private void InitActions(int amount)
     {
-        Slots_Building = new List<ActionSlot>();
+        SlotsBuildingPlayer = new List<ActionSlot>();
         Actions = new List<ActionItem>();
         for (int i = 0; i < amount; i++)
         {
             ActionSlot slot = new ActionSlot();
             slot.slotId = i;
-            Slots_Building.Add(slot);
+            SlotsBuildingPlayer.Add(slot);
         }
 
         ActionItem actionItem = new ActionItem();

@@ -33,15 +33,15 @@ public class BuildingSceneUIManager : MonoBehaviour
 
         GridLayoutGroup grid = slots.gameObject.AddComponent<GridLayoutGroup>();
         grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        grid.constraintCount = GameManager.Instance.Slots_Building.Count;
+        grid.constraintCount = GameManager.Instance.SlotAmount;
         grid.cellSize = ActionSlot.GetComponent<RectTransform>().sizeDelta;
         grid.spacing = new Vector2(10, 100); //TODO FIX ME!!!
         grid.padding = new RectOffset(20, 20, 20, 20);
 
         List< ActionSlot> NewSlots = new List<ActionSlot> ();
-        for (int i = 0; i < GameManager.Instance.Slots_Building.Count; i++)
+        for (int i = 0; i < GameManager.Instance.SlotsBuildingPlayer.Count; i++)
         {
-            ActionSlot slot = GameManager.Instance.Slots_Building[i];
+            ActionSlot slot = GameManager.Instance.SlotsBuildingPlayer[i];
 
             ActionSlot actionSlot = Instantiate(ActionSlot, slots);
             actionSlot.slotId = slot.slotId;
@@ -56,7 +56,7 @@ public class BuildingSceneUIManager : MonoBehaviour
             NewSlots.Add(actionSlot);
         }
 
-        int lastIndex = GameManager.Instance.Slots_Building[GameManager.Instance.Slots_Building.Count - 1].slotId + 1;
+        int lastIndex = GameManager.Instance.SlotsBuildingPlayer[GameManager.Instance.SlotAmount - 1].slotId + 1;
 
         foreach (ActionItem action in GameManager.Instance.Actions)
         {
@@ -69,7 +69,7 @@ public class BuildingSceneUIManager : MonoBehaviour
             lastIndex++;
         }
 
-        GameManager.Instance.Slots_Building = NewSlots;
+        GameManager.Instance.SlotsBuildingPlayer = NewSlots;
     }
 
     private ActionItem InstantiateActionItem(ActionSlot slot, ActionItem parent)
@@ -85,7 +85,7 @@ public class BuildingSceneUIManager : MonoBehaviour
 
     public void OnButtonPressed()
     {
-        GameManager.Instance.SwitchScene(GameState.MENU);
+        GameManager.Instance.SwitchScene(GameState.CLASH);
     }
 
 

@@ -34,6 +34,4 @@ public class MenuSceneUIManager : MonoBehaviour
         Debug.Log("bye");
         Application.Quit();
     }
-
-
 }
