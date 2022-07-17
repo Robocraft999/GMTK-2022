@@ -14,7 +14,8 @@ public class ClashSceneUIManager : MonoBehaviour
 
     public int fadeTimeDOF;
 
-    public List<KeyValuePair<PlayerController, List<ActionSlot>>> Players { get; private set; }
+    //public List<KeyValuePair<PlayerController, List<ActionSlot>>> Players { get; private set; }
+    public List<PlayerController> Players { get; private set; }
 
     public void Awake()
     {
@@ -24,6 +25,8 @@ public class ClashSceneUIManager : MonoBehaviour
     public void Start()
     {
         StartCoroutine(DisableDice());
+        PlayerController[] players = FindObjectsOfType<PlayerController>();
+        Players = new List<PlayerController>(players);
     }
     public IEnumerator UITurn()
     {
@@ -60,15 +63,5 @@ public class ClashSceneUIManager : MonoBehaviour
         }
         //postProcessVolume.enabled = false;
         yield return null;
-    }
-
-    public void InitPlayers(List<ActionSlot> player1, List<ActionSlot> player2)
-    {
-        PlayerController[] players = FindObjectsOfType<PlayerController>();
-        Players = new List<KeyValuePair<PlayerController, List<ActionSlot>>>
-        {
-            new KeyValuePair<PlayerController, List<ActionSlot>>(players[0], player1),
-            new KeyValuePair<PlayerController, List<ActionSlot>>(players[1], player2)
-        };
     }
 }

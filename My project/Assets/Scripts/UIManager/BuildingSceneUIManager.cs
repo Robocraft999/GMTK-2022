@@ -78,7 +78,7 @@ public class BuildingSceneUIManager : MonoBehaviour
         grid.padding = new RectOffset(20, 20, 20, 20);
 
         LoadBuildingDeck(GameManager.Instance.PlayerData[0], slots);
-        
+        int test = 0;
     }
 
     private ActionItem InstantiateActionItem(ActionSlot slot, ActionItem parent)
