@@ -17,6 +17,7 @@ public class MenuSceneUIManager : MonoBehaviour
 
     public GameObject set_main;
     public GameObject set_options;
+    public GameObject HTP;
 
     public void Awake()
     {
@@ -27,9 +28,7 @@ public class MenuSceneUIManager : MonoBehaviour
     {
         set_main.SetActive(true);
         set_options.SetActive(false);
-
-        rolls = GameObject.Find("sliderRolls").GetComponent<Slider>().value;
-        rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value;
+        HTP.SetActive(false);
     }
 
     public void ButtonPressedStart()
@@ -47,6 +46,18 @@ public class MenuSceneUIManager : MonoBehaviour
     {
         GameObject.Find("sliderRolls").GetComponent<Slider>().value = 20;
         rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value = 5;
+    }
+
+    public void ButtonPressedHTP()
+    {
+        if (HTP.active == true)
+        {
+            HTP.SetActive(false);
+        } else
+        {
+            HTP.SetActive(true);
+        }
+        
     }
 
     public void Update()
