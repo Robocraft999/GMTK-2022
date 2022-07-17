@@ -28,11 +28,8 @@ public class GameManager : MonoBehaviour
 
     public List<ActionType> ActionTypes;
 
-    public List<ActionSlot> SlotsBuildingPlayer1 { get; set; }
-    public List<ActionSlot> SlotsBuildingPlayer2 { get; set; }
     public List<KeyValuePair<List<ActionSlot>, List<ActionItem>>> PlayerData { get; set; }
     public int SlotAmount { get; private set; }
-    public List<ActionItem> Actions { get; set; }
 
     
 
@@ -76,8 +73,6 @@ public class GameManager : MonoBehaviour
     IEnumerator Turn()
     {
         int turns = 0;
-        yield return new WaitForSeconds(1);
-        ClashSceneUIManager.Instance.InitPlayers(SlotsBuildingPlayer1, SlotsBuildingPlayer2);
         while (true)
         {
             IEnumerator enumerator = ClashSceneUIManager.Instance.UITurn();
@@ -105,15 +100,15 @@ public class GameManager : MonoBehaviour
 
     private void PerformActions(int input)
     {
-        foreach(var kvp in ClashSceneUIManager.Instance.Players)
+        foreach(var player in ClashSceneUIManager.Instance.Players)
         {
-            PerformAction(kvp.Key, input);
+            PerformAction(player, input);
         }
     }
 
     private void PerformAction(PlayerController player, int input)
     {
-        List<ActionSlot> slots = ClashSceneUIManager.Instance.Players.Where(kvp => kvp.Key == player).ToList()[0].Value;
+        List<ActionSlot> slots = PlayerData[ClashSceneUIManager.Instance.Players.IndexOf(player)].Key;//TODO FIX ME
         foreach (ActionSlot slot in slots.Where(slot => slot.slotId == input).Where(slot => (object)slot.CurrentItem != null))
         {
             ActionType type = ((ActionItem)slot.CurrentItem).Type;
@@ -125,23 +120,29 @@ public class GameManager : MonoBehaviour
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Type Safety", "UNT0010:Component instance creation", Justification = "<Pending>")]
     private void InitActions(int amount)
     {
-        SlotsBuildingPlayer1 = new List<ActionSlot>();
-        SlotsBuildingPlayer2 = new List<ActionSlot>();
-        Actions = new List<ActionItem>();
-        for (int i = 0; i < amount; i++)
+        PlayerData = new List<KeyValuePair<List<ActionSlot>, List<ActionItem>>>();
+        //amount of players
+        for (int i = 0; i < 2; i++)
         {
-            ActionSlot slot = new ActionSlot
+            List<ActionItem> actions = new List<ActionItem>();
+            List<ActionSlot> slots = new List<ActionSlot>();
+            for (int j = 0; j < amount; j++)
             {
-                slotId = i
-            };
-            SlotsBuildingPlayer1.Add(slot);
-        }
+                ActionSlot slot = new ActionSlot
+                {
+                    slotId = j
+                };
+                slots.Add(slot);
+            }
 
-        ActionItem actionItem = new ActionItem
-        {
-            Type = ActionTypes[random.Next(ActionTypes.Count)]
-        };
-        Actions.Add(actionItem);
+            ActionItem actionItem = new ActionItem
+            {
+                Type = ActionTypes[random.Next(ActionTypes.Count)]
+            };
+            actions.Add(actionItem);
+
+            PlayerData.Add(new KeyValuePair<List<ActionSlot>, List<ActionItem>>(slots, actions));
+        }
     }
 
 
