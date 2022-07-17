@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         {
             foreach(var player in ClashSceneUIManager.Instance.Players)
             {
-                GameManager.Instance.scores[player.name] += 50;
+                ChangeScore(player.name, 50);
             }
         }
     }
@@ -184,6 +184,12 @@ public class GameManager : MonoBehaviour
         }
         State = newState;
 
+    }
+
+    public void ChangeScore(string name, int amount)
+    {
+        if(scores.ContainsKey(name))scores[name] += amount;
+        else scores.Add(name, amount);
     }
 
     public ActionType RandomAction()
