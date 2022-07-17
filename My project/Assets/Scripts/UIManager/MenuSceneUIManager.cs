@@ -44,7 +44,7 @@ public class MenuSceneUIManager : MonoBehaviour
 
     public void ButtonPressedDefault()
     {
-        GameObject.Find("sliderRolls").GetComponent<Slider>().value = 20;
+        GameObject.Find("sliderRolls").GetComponent<Slider>().value = 10;
         rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value = 5;
     }
 
