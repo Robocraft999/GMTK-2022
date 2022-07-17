@@ -26,7 +26,7 @@ public class MenuSceneUIManager : MonoBehaviour
 
     public void Start()
     {
-        rolls = 20;
+        rolls = 10;
         rounds = 5;
         set_main.SetActive(true);
         set_options.SetActive(false);
@@ -46,7 +46,7 @@ public class MenuSceneUIManager : MonoBehaviour
 
     public void ButtonPressedDefault()
     {
-        rolls = GameObject.Find("sliderRolls").GetComponent<Slider>().value = 20;
+        rolls = GameObject.Find("sliderRolls").GetComponent<Slider>().value = 10;
         rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value = 5;
     }
 
