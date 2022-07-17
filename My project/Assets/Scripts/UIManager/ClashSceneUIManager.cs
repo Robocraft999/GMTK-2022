@@ -23,7 +23,7 @@ public class ClashSceneUIManager : MonoBehaviour
 
     public void Start()
     {
-        DisableDice();
+        StartCoroutine(DisableDice());
     }
     public IEnumerator UITurn()
     {
@@ -65,8 +65,10 @@ public class ClashSceneUIManager : MonoBehaviour
     public void InitPlayers(List<ActionSlot> player1, List<ActionSlot> player2)
     {
         PlayerController[] players = FindObjectsOfType<PlayerController>();
-        Players = new List<KeyValuePair<PlayerController, List<ActionSlot>>>();
-        Players.Add(new KeyValuePair<PlayerController, List<ActionSlot>>(players[0], player1));
-        Players.Add(new KeyValuePair<PlayerController, List<ActionSlot>>(players[1], player2));
+        Players = new List<KeyValuePair<PlayerController, List<ActionSlot>>>
+        {
+            new KeyValuePair<PlayerController, List<ActionSlot>>(players[0], player1),
+            new KeyValuePair<PlayerController, List<ActionSlot>>(players[1], player2)
+        };
     }
 }

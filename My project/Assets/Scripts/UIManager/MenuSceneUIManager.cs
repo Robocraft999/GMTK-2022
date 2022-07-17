@@ -36,12 +36,12 @@ public class MenuSceneUIManager : MonoBehaviour
     }
 
     //TODO rename
-    public void buttonPressed_start()
+    public void ButtonPressedStart()
     {
         GameManager.Instance.SwitchScene(GameState.BUILDING);
     }
 
-    public void buttonPressed_exit()
+    public void ButtonPressedExit()
     {
         Debug.Log("bye");
         Application.Quit();

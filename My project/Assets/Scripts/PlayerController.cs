@@ -12,18 +12,13 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
-    {
-        
-    }
-
-    public void applyForce(Vector2 force)
+    public void ApplyForce(Vector2 force)
     {
         rb.AddForce(force);
         print("Force: " + force);
     }
 
-    public void attack()
+    public void Attack()
     {
         print("ATTACKEEEEEEEEE");
     }

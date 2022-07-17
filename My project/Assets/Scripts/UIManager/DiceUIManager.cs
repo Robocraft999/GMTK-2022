@@ -38,8 +38,8 @@ public class DiceUIManager : MonoBehaviour
 
     private int CalcResult()
     {
-        Ray ray2 = new Ray(diceCam.transform.position, dice.position - diceCam.transform.position);
-        if (Physics.Raycast(ray2, out var hit))
+        Ray ray = new Ray(diceCam.transform.position, dice.position - diceCam.transform.position);
+        if (Physics.Raycast(ray, out var hit))
         {
             if(int.TryParse(hit.transform.gameObject.name, out var result))
             return result;

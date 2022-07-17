@@ -26,13 +26,9 @@ public class ScoreMaster : MonoBehaviour
         get => score2;
         set
         {
+            score2 = value;
             if (scoreTextP2) scoreTextP2.text = "" + value;
         }
-    }
-
-    void Update()
-    {
-        
     }
 }
 

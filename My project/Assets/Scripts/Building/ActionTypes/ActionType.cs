@@ -12,6 +12,6 @@ public class ActionType : ScriptableObject
     public int Cost;
     public bool attack;
     public bool block;
-    public bool applyForce { get => force != Vector2.zero; }
+    public bool ApplyForce { get => force != Vector2.zero; }
     public Vector2 force;
 }

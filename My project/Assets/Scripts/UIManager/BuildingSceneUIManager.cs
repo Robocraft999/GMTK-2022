@@ -83,12 +83,12 @@ public class BuildingSceneUIManager : MonoBehaviour
         return actionItem;
     }
 
-    public void buttonPressed_back()
+    public void ButtonPressedBack()
     {
         GameManager.Instance.SwitchScene(GameState.MENU);
     }
 
-    public void buttonPressed_clash()
+    public void ButtonPressedClash()
     {
         GameManager.Instance.SwitchScene(GameState.CLASH);
     }

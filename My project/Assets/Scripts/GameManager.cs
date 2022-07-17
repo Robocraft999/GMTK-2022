@@ -16,8 +16,7 @@ public class GameManager : MonoBehaviour
         } 
         private set { 
             if (m_state == value) return;
-            if (OnStateChange != null)
-                OnStateChange(m_state, value);
+            OnStateChange?.Invoke(m_state, value);
             m_state = value;
         }
     }
@@ -58,11 +57,6 @@ public class GameManager : MonoBehaviour
 
         SlotAmount = 6;
         InitActions(SlotAmount);
-    }
-
-    void Update()
-    {
-
     }
 
     void StartGameLoop(GameState oldState, GameState newState)
@@ -122,11 +116,12 @@ public class GameManager : MonoBehaviour
         foreach (ActionSlot slot in slots.Where(slot => slot.slotId == input).Where(slot => (object)slot.CurrentItem != null))
         {
             ActionType type = ((ActionItem)slot.CurrentItem).Type;
-            if (type.applyForce) player.applyForce(type.force);
-            if (type.attack) player.attack();
+            if (type.ApplyForce) player.ApplyForce(type.force);
+            if (type.attack) player.Attack();
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Type Safety", "UNT0010:Component instance creation", Justification = "<Pending>")]
     private void InitActions(int amount)
     {
         SlotsBuildingPlayer = new List<ActionSlot>();
@@ -134,13 +129,17 @@ public class GameManager : MonoBehaviour
         Actions = new List<ActionItem>();
         for (int i = 0; i < amount; i++)
         {
-            ActionSlot slot = new ActionSlot();
-            slot.slotId = i;
+            ActionSlot slot = new ActionSlot
+            {
+                slotId = i
+            };
             SlotsBuildingPlayer.Add(slot);
         }
 
-        ActionItem actionItem = new ActionItem();
-        actionItem.Type = ActionTypes[random.Next(ActionTypes.Count)];
+        ActionItem actionItem = new ActionItem
+        {
+            Type = ActionTypes[random.Next(ActionTypes.Count)]
+        };
         Actions.Add(actionItem);
     }
 
