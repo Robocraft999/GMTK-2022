@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
 
             ActionItem actionItem = new ActionItem
             {
-                Type = ActionTypes[random.Next(ActionTypes.Count)]
+                Type = RandomAction()
             };
             actions.Add(actionItem);
 
@@ -176,5 +176,10 @@ public class GameManager : MonoBehaviour
         }
         State = newState;
 
+    }
+
+    public ActionType RandomAction()
+    {
+        return ActionTypes[random.Next(ActionTypes.Count)];
     }
 }

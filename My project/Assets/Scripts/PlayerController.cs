@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -8,6 +9,18 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public Rigidbody2D ProjectilePrefab;
     private float shootPower = 40f;
+
+    public TMP_Text scoreText;
+    private int score = 0;
+    public int Score
+    {
+        get => score;
+        set
+        {
+            score = value;
+            if (scoreText) scoreText.text = "" + value;
+        }
+    }
 
     void Start()
     {

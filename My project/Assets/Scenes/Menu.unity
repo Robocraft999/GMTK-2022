@@ -950,6 +950,8 @@ MonoBehaviour:
   ActionTypes:
   - {fileID: 11400000, guid: 2b3d81eee0ab07940a2bff0d00d07552, type: 2}
   - {fileID: 11400000, guid: 84a3f4a8c1316ee4996aafae7152d943, type: 2}
+  - {fileID: 11400000, guid: ed13e1a0cbe057545a813de2294fa780, type: 2}
+  - {fileID: 11400000, guid: e4eb37a7be0065a409dfd05623a91650, type: 2}
 --- !u!4 &572266810
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class ClashSceneUIManager : MonoBehaviour
     public static ClashSceneUIManager Instance { get; private set; }
     public PostProcessVolume postProcessVolume;
     public DiceUIManager diceUIManager;
+    public ShopItem ShopItem;
 
     public int fadeTimeDOF;
 
@@ -26,6 +27,7 @@ public class ClashSceneUIManager : MonoBehaviour
     {
         StartCoroutine(DisableDice());
     }
+
     public IEnumerator UITurn()
     {
         yield return EnableDice();
@@ -52,6 +54,25 @@ public class ClashSceneUIManager : MonoBehaviour
 
     private void InitShop()
     {
+        Transform parent = GameObject.FindGameObjectWithTag("ClashShop").transform;
+        foreach(var player in Players)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                ShopItem item = Instantiate(ShopItem, parent);
+                ActionType type = GameManager.Instance.RandomAction();
+                item.ActionName.text = type.Name;
+                item.CostText.text = type.Cost.ToString();
+                item.BuyerText.text = player.name;
+                item.player = player;
+                item.type = type;
+            }
+        }
+    }
+
+    public void DecreaseScore(PlayerController player, int amount)
+    {
+        int index = Players.IndexOf(player);
 
     }
 

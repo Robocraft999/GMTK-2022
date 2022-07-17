@@ -26,7 +26,7 @@ public class MenuSceneUIManager : MonoBehaviour
 
     public void Start()
     {
-        rolls = 10;
+        rolls = 2;
         rounds = 5;
         set_main.SetActive(true);
         set_options.SetActive(false);
