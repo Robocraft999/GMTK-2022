@@ -105,5 +105,15 @@ public class BuildingSceneUIManager : MonoBehaviour
         GameManager.Instance.SwitchScene(GameState.CLASH);
     }
 
+    public void ButtonPressedPrevious()
+    {
+
+    }
+
+    public void ButtonPressedNext()
+    {
+
+    }
+
 
 }
