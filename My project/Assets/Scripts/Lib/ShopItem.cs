@@ -15,7 +15,7 @@ public class ShopItem : MonoBehaviour
 
     public void OnBuy()
     {
-        if (player.Score - type.Cost > 0) {
+        if (player.Score - type.Cost >= 0) {
             player.Score -= type.Cost;
             BuyButton.SetActive(false);
             int index = ClashSceneUIManager.Instance.Players.IndexOf(player);

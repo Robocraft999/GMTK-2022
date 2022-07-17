@@ -76,6 +76,13 @@ public class GameManager : MonoBehaviour
         {
             StopCoroutine(gameloop);
         }
+        if(newState == GameState.SHOP)
+        {
+            foreach(var player in ClashSceneUIManager.Instance.Players)
+            {
+                player.Score += 50;
+            }
+        }
     }
 
     IEnumerator Turn()
@@ -94,7 +101,6 @@ public class GameManager : MonoBehaviour
                 else Debug.LogWarning("Could not determine result of dice");
             }
 
-            print(input);
             yield return new WaitForSeconds(0.2f); 
             PerformActions(input);
             yield return new WaitForSeconds(MenuSceneUIManager.Instance.interval);

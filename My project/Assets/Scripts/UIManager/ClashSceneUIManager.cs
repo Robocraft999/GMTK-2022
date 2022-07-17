@@ -12,6 +12,8 @@ public class ClashSceneUIManager : MonoBehaviour
     public PostProcessVolume postProcessVolume;
     public DiceUIManager diceUIManager;
     public ShopItem ShopItem;
+    public Transform ShopContainer;
+    public GameObject BuildingButton;
 
     public int fadeTimeDOF;
 
@@ -35,10 +37,8 @@ public class ClashSceneUIManager : MonoBehaviour
         {
             o.SetActive(true);
         }
-        foreach (GameObject o in GameObject.FindGameObjectsWithTag("ClashShop"))
-        {
-            o.SetActive(false);
-        }
+        ShopContainer.gameObject.SetActive(false);
+        BuildingButton.SetActive(false);
     }
 
     public IEnumerator UITurn()
@@ -57,24 +57,20 @@ public class ClashSceneUIManager : MonoBehaviour
             {
                 o.SetActive(false);
             }
-            foreach (GameObject o in GameObject.FindGameObjectsWithTag("ClashShop"))
-            {
-                o.SetActive(true);
-            }
+            ShopContainer.gameObject.SetActive(true);
+            BuildingButton.SetActive(true);
             InitShop();
         }
     }
 
     private void InitShop()
     {
-        Transform parent = GameObject.FindGameObjectWithTag("ClashShop").transform;
         foreach(var player in Players)
         {
             for(int i = 0; i < 4; i++)
             {
-                ShopItem item = Instantiate(ShopItem, parent);
+                ShopItem item = Instantiate(ShopItem, ShopContainer);
                 ActionType type = GameManager.Instance.RandomAction();
-                Players[i].Score = +50;
                 item.ActionName.text = type.Name;
                 item.CostText.text = type.Cost.ToString();
                 item.BuyerText.text = player.name;

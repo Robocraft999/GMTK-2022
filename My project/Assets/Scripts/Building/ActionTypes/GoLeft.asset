@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoLeft
   m_EditorClassIdentifier: 
   Name: Left
-  Cost: 0
+  Cost: 75
   Attack: 0
   Block: 0
   Force: {x: -250, y: 0}
