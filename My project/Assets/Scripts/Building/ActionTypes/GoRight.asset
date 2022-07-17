@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc2d7b4cd79b0a42be1f47d2d25f635, type: 3}
-  m_Name: Jump
+  m_Name: GoRight
   m_EditorClassIdentifier: 
-  Name: Jump
+  Name: Right
   Cost: 0
   Attack: 0
   Block: 0
-  Force: {x: 0, y: 400}
+  Force: {x: 250, y: 0}

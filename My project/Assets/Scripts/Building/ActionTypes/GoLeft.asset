@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Left
   Cost: 0
-  attack: 0
-  block: 0
-  force: {x: -100, y: 0}
+  Attack: 0
+  Block: 0
+  Force: {x: -250, y: 0}
