@@ -1523,6 +1523,7 @@ MonoBehaviour:
   buttonClash: {fileID: 1812590179}
   buttonNext: {fileID: 93686743}
   buttonPrevious: {fileID: 564205948}
+  playerText: {fileID: 510522779}
 --- !u!4 &1270185458
 Transform:
   m_ObjectHideFlags: 0

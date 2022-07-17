@@ -14,6 +14,7 @@ public class BuildingSceneUIManager : MonoBehaviour
     public GameObject buttonClash;
     public GameObject buttonNext;
     public GameObject buttonPrevious;
+    public GameObject playerText;
 
     private Transform slots;
 
@@ -34,6 +35,15 @@ public class BuildingSceneUIManager : MonoBehaviour
 
     public void LoadBuildingDeck(KeyValuePair<List<ActionSlot>, List<ActionItem>>  player)
     {
+        if (playerIndex == 0)
+        {
+            playerText.GetComponent<TMP_Text>().text = "Player 1";
+        } else
+        {
+            playerText.GetComponent<TMP_Text>().text = "Player 2";
+        }
+
+
         var PlayerSlots = player.Key;
         var PlayerActions = player.Value;
         int DiceSlotAmount = GameManager.Instance.SlotAmount;
