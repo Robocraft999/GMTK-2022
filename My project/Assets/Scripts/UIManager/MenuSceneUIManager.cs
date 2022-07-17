@@ -28,7 +28,7 @@ public class MenuSceneUIManager : MonoBehaviour
 
     public void Start()
     {
-        rolls = 2;
+        rolls = 10;
         rounds = 5;
         speed = 2;
         interval = 0.8f;
