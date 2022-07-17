@@ -61,6 +61,7 @@ public class ClashSceneUIManager : MonoBehaviour
             {
                 ShopItem item = Instantiate(ShopItem, parent);
                 ActionType type = GameManager.Instance.RandomAction();
+                Players[i].Score = +50;
                 item.ActionName.text = type.Name;
                 item.CostText.text = type.Cost.ToString();
                 item.BuyerText.text = player.name;

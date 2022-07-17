@@ -2162,7 +2162,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: In this game, two players assign actions like "Jump" or "Attack" to the
+  m_text: In this game, two players assign actions like "Jump" or "Shoot" to the
     numbers 1 to 6. Then a dice will roll a certain number of times. The player figures
     will act based on the actions assigned to the rolled numbers. Based on performance
     by the figures, you will get a score. Using this score, you can buy more actions
