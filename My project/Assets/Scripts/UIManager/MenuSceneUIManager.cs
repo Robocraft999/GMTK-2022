@@ -15,6 +15,9 @@ public class MenuSceneUIManager : MonoBehaviour
     public float rolls;
     public float rounds;
 
+    public GameObject set_main;
+    public GameObject set_options;
+
     public void Awake()
     {
         Instance = this;
@@ -22,20 +25,13 @@ public class MenuSceneUIManager : MonoBehaviour
 
     public void Start()
     {
-        InitMenuScene();
-        GameObject.Find("set_main").SetActive(true);
-        GameObject.Find("set_options").SetActive(false);
+        set_main.SetActive(true);
+        set_options.SetActive(false);
 
         rolls = GameObject.Find("sliderRolls").GetComponent<Slider>().value;
         rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value;
     }
 
-    private void InitMenuScene()
-    {
-
-    }
-
-    //TODO rename
     public void ButtonPressedStart()
     {
         GameManager.Instance.SwitchScene(GameState.BUILDING);
@@ -47,17 +43,27 @@ public class MenuSceneUIManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void ButtonPressedDefault()
+    {
+        GameObject.Find("sliderRolls").GetComponent<Slider>().value = 20;
+        rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value = 5;
+    }
+
     public void Update()
     {
-        UpdateSliderText();
+        if (set_options.active == true)
+        {
+            UpdateSliderText();
+        }
+
     }
 
     public void UpdateSliderText()
     {
-        /*rolls = GameObject.Find("sliderRolls").GetComponent<Slider>().value;
+        rolls = GameObject.Find("sliderRolls").GetComponent<Slider>().value;
         GameObject.Find("rolls").GetComponent<TextMeshProUGUI>().text = rolls.ToString();
         rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value;
-        GameObject.Find("rounds").GetComponent<TextMeshProUGUI>().text = rounds.ToString();*/
+        GameObject.Find("rounds").GetComponent<TextMeshProUGUI>().text = rounds.ToString();
     }
 
 }
