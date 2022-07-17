@@ -23,9 +23,22 @@ public class ClashSceneUIManager : MonoBehaviour
         GameManager.Instance.OnStateChange += OnStateChanged;
     }
 
+    public void OnDestroy()
+    {
+        GameManager.Instance.OnStateChange -= OnStateChanged;
+    }
+
     public void Start()
     {
         StartCoroutine(DisableDice());
+        foreach (GameObject o in GameObject.FindGameObjectsWithTag("ClashNoShop"))
+        {
+            o.SetActive(true);
+        }
+        foreach (GameObject o in GameObject.FindGameObjectsWithTag("ClashShop"))
+        {
+            o.SetActive(false);
+        }
     }
 
     public IEnumerator UITurn()
@@ -70,12 +83,6 @@ public class ClashSceneUIManager : MonoBehaviour
         }
     }
 
-    public void DecreaseScore(PlayerController player, int amount)
-    {
-        int index = Players.IndexOf(player);
-
-    }
-
     private IEnumerator EnableDice()
     { 
         DepthOfField setting = postProcessVolume.profile.GetSetting<DepthOfField>();
@@ -101,5 +108,10 @@ public class ClashSceneUIManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f / fadeTimeDOF);
         }
         yield return null;
+    }
+
+    public void BackToBuilding()
+    {
+        GameManager.Instance.SwitchScene(GameState.BUILDING);
     }
 }
