@@ -12,7 +12,10 @@ public class BuildingSceneUIManager : MonoBehaviour
     public ActionItem ActionPrefab;
     public ActionSlot ActionSlot;
     public GameObject buttonClash;
+    public GameObject buttonNext;
+    public GameObject buttonBack;
 
+    public int playerIndex { get; set; } = 0;
     
     public void Awake()
     {
@@ -78,7 +81,7 @@ public class BuildingSceneUIManager : MonoBehaviour
         grid.spacing = new Vector2(10, 100); //TODO FIX ME!!!
         grid.padding = new RectOffset(20, 20, 20, 20);
 
-        LoadBuildingDeck(GameManager.Instance.PlayerData[0], slots);
+        LoadBuildingDeck(GameManager.Instance.PlayerData[playerIndex], slots);
     }
 
     private ActionItem InstantiateActionItem(ActionSlot slot, ActionItem parent)
