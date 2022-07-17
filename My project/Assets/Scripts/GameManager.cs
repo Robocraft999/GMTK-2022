@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
 
     void StartGameLoop(GameState oldState, GameState newState)
     {
-        
         if (newState == GameState.CLASH)
         {
             gameloop = Turn();
