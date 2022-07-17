@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
     IEnumerator Turn()
     {
         int turns = 0;
+        yield return new WaitUntil(() => ClashSceneUIManager.Instance);
         while (true)
         {
             IEnumerator enumerator = ClashSceneUIManager.Instance.UITurn();
@@ -86,12 +87,12 @@ public class GameManager : MonoBehaviour
             }
 
             print(input);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.2f); 
             PerformActions(input);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
 
             turns++;
-            if (turns == GameObject.Find("MenuSceneUIManager").GetComponent<MenuSceneUIManager>().rolls) 
+            if (turns == MenuSceneUIManager.Instance.rolls) 
             {
                 break;
             }

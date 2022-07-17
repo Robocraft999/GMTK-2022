@@ -11,6 +11,7 @@ public class BuildingSceneUIManager : MonoBehaviour
 
     public ActionItem ActionPrefab;
     public ActionSlot ActionSlot;
+    public GameObject buttonClash;
 
     
     public void Awake()
@@ -47,7 +48,7 @@ public class BuildingSceneUIManager : MonoBehaviour
 
         int lastIndex = PlayerSlots[GameManager.Instance.SlotAmount - 1].slotId + 1;
 
-        foreach (ActionItem action in PlayerActions.Where(item => (object)item.currentSlot != null))
+        foreach (ActionItem action in PlayerActions.Where(item => item.currentSlot is null))
         {
             ActionSlot actionSlot = Instantiate(ActionSlot, slots);
             actionSlot.slotId = lastIndex;
@@ -78,7 +79,6 @@ public class BuildingSceneUIManager : MonoBehaviour
         grid.padding = new RectOffset(20, 20, 20, 20);
 
         LoadBuildingDeck(GameManager.Instance.PlayerData[0], slots);
-        int test = 0;
     }
 
     private ActionItem InstantiateActionItem(ActionSlot slot, ActionItem parent)

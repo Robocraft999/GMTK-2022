@@ -847,6 +847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionPrefab: {fileID: 8556151439317811352, guid: ca9838e17b58a12489fdbf9b5d1ba72e, type: 3}
   ActionSlot: {fileID: 8676011221077964266, guid: 9f2f8a7557f85b645ad0e45476731346, type: 3}
+  buttonClash: {fileID: 1812590179}
 --- !u!4 &1270185458
 Transform:
   m_ObjectHideFlags: 0
@@ -879,7 +880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1812590180
 RectTransform:
   m_ObjectHideFlags: 0
