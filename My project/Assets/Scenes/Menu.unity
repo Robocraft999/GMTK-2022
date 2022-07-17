@@ -2708,7 +2708,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 398500773}
         m_TargetAssemblyTypeName: MenuSceneUIManager, Assembly-CSharp
-        m_MethodName: buttonPressed_start
+        m_MethodName: ButtonPressedStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3200,7 +3200,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 398500773}
         m_TargetAssemblyTypeName: MenuSceneUIManager, Assembly-CSharp
-        m_MethodName: buttonPressed_exit
+        m_MethodName: ButtonPressedExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

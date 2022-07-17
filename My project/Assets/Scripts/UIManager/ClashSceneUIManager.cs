@@ -41,11 +41,11 @@ public class ClashSceneUIManager : MonoBehaviour
         for (float i = 0; i < fadeTimeDOF + 1; i++)
         {
             setting.focusDistance.Interp(10, 2, i/ fadeTimeDOF);
-            //print()
             yield return new WaitForSeconds(1f / fadeTimeDOF);
         }
         diceUIManager.gameObject.SetActive(true);
         diceUIManager.StartRotate();
+        yield return null;
     }
 
     private IEnumerator DisableDice()

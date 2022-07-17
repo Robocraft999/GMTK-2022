@@ -946,7 +946,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1270185457}
         m_TargetAssemblyTypeName: BuildingSceneUIManager, Assembly-CSharp
-        m_MethodName: buttonPressed_clash
+        m_MethodName: ButtonPressedClash
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1079,7 +1079,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1270185457}
         m_TargetAssemblyTypeName: BuildingSceneUIManager, Assembly-CSharp
-        m_MethodName: buttonPressed_back
+        m_MethodName: ButtonPressedBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

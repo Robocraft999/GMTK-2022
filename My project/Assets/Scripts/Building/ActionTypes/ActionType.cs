@@ -10,8 +10,8 @@ public class ActionType : ScriptableObject
 {
     public string Name;
     public int Cost;
-    public bool attack;
-    public bool block;
-    public bool ApplyForce { get => force != Vector2.zero; }
-    public Vector2 force;
+    public bool Attack;
+    public bool Block;
+    public bool ApplyForce { get => Force != Vector2.zero; }
+    public Vector2 Force;
 }

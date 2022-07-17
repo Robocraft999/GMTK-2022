@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,7 +10,7 @@ public class BuildingSceneUIManager : MonoBehaviour
     public static BuildingSceneUIManager Instance { get; private set; }
 
     public ActionItem ActionPrefab;
-    public ActionSlot ActionSlot; //Inv and dice-eyes
+    public ActionSlot ActionSlot;
 
     
     public void Awake()
@@ -20,6 +21,44 @@ public class BuildingSceneUIManager : MonoBehaviour
     public void Start()
     {
         InitBuildingScene();
+    }
+
+    public void LoadBuildingDeck(KeyValuePair<List<ActionSlot>, List<ActionItem>>  player, Transform slots)
+    {
+        var PlayerSlots = player.Key;
+        var PlayerActions = player.Value;
+        List<ActionSlot> NewSlots = new List<ActionSlot>();
+        for (int i = 0; i < PlayerSlots.Count; i++)
+        {
+            ActionSlot slot = PlayerSlots[i];
+
+            ActionSlot actionSlot = Instantiate(ActionSlot, slots);
+            actionSlot.slotId = slot.slotId;
+
+            ActionItem action = null;
+            if (slot.CurrentItem != null)
+            {
+                action = InstantiateActionItem(actionSlot, (ActionItem)slot.CurrentItem);
+            }
+            actionSlot.CurrentItem = action;
+
+            NewSlots.Add(actionSlot);
+        }
+
+        int lastIndex = PlayerSlots[GameManager.Instance.SlotAmount - 1].slotId + 1;
+
+        foreach (ActionItem action in PlayerActions.Where(item => (object)item.currentSlot != null))
+        {
+            ActionSlot actionSlot = Instantiate(ActionSlot, slots);
+            actionSlot.slotId = lastIndex;
+
+            ActionItem actionItem = InstantiateActionItem(actionSlot, action);
+            NewSlots.Add(actionSlot);
+
+            lastIndex++;
+        }
+
+        player = new KeyValuePair<List<ActionSlot>, List<ActionItem>>(NewSlots, PlayerActions);
     }
 
     private void InitBuildingScene()
@@ -38,38 +77,8 @@ public class BuildingSceneUIManager : MonoBehaviour
         grid.spacing = new Vector2(10, 100); //TODO FIX ME!!!
         grid.padding = new RectOffset(20, 20, 20, 20);
 
-        List< ActionSlot> NewSlots = new List<ActionSlot> ();
-        for (int i = 0; i < GameManager.Instance.SlotsBuildingPlayer.Count; i++)
-        {
-            ActionSlot slot = GameManager.Instance.SlotsBuildingPlayer[i];
-
-            ActionSlot actionSlot = Instantiate(ActionSlot, slots);
-            actionSlot.slotId = slot.slotId;
-
-            ActionItem action = null;
-            if (slot.CurrentItem != null)
-            {
-                action = InstantiateActionItem(actionSlot, (ActionItem)slot.CurrentItem);
-            }
-            actionSlot.CurrentItem = action;
-
-            NewSlots.Add(actionSlot);
-        }
-
-        int lastIndex = GameManager.Instance.SlotsBuildingPlayer[GameManager.Instance.SlotAmount - 1].slotId + 1;
-
-        foreach (ActionItem action in GameManager.Instance.Actions)
-        {
-            ActionSlot actionSlot = Instantiate(ActionSlot, slots);
-            actionSlot.slotId = lastIndex;
-
-            ActionItem actionItem = InstantiateActionItem(actionSlot, action);
-            NewSlots.Add(actionSlot);
-
-            lastIndex++;
-        }
-
-        GameManager.Instance.SlotsBuildingPlayer = NewSlots;
+        LoadBuildingDeck(GameManager.Instance.PlayerData[0], slots);
+        
     }
 
     private ActionItem InstantiateActionItem(ActionSlot slot, ActionItem parent)

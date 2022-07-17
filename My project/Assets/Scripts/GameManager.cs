@@ -28,8 +28,9 @@ public class GameManager : MonoBehaviour
 
     public List<ActionType> ActionTypes;
 
-    public List<ActionSlot> SlotsBuildingPlayer { get; set; }
-    public List<ActionSlot> SlotsBuildingAI { get; set; }
+    public List<ActionSlot> SlotsBuildingPlayer1 { get; set; }
+    public List<ActionSlot> SlotsBuildingPlayer2 { get; set; }
+    public List<KeyValuePair<List<ActionSlot>, List<ActionItem>>> PlayerData { get; set; }
     public int SlotAmount { get; private set; }
     public List<ActionItem> Actions { get; set; }
 
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
     {
         int turns = 0;
         yield return new WaitForSeconds(1);
-        ClashSceneUIManager.Instance.InitPlayers(SlotsBuildingPlayer, SlotsBuildingAI);
+        ClashSceneUIManager.Instance.InitPlayers(SlotsBuildingPlayer1, SlotsBuildingPlayer2);
         while (true)
         {
             IEnumerator enumerator = ClashSceneUIManager.Instance.UITurn();
@@ -116,16 +117,16 @@ public class GameManager : MonoBehaviour
         foreach (ActionSlot slot in slots.Where(slot => slot.slotId == input).Where(slot => (object)slot.CurrentItem != null))
         {
             ActionType type = ((ActionItem)slot.CurrentItem).Type;
-            if (type.ApplyForce) player.ApplyForce(type.force);
-            if (type.attack) player.Attack();
+            if (type.ApplyForce) player.ApplyForce(type.Force);
+            if (type.Attack) player.Attack();
         }
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Type Safety", "UNT0010:Component instance creation", Justification = "<Pending>")]
     private void InitActions(int amount)
     {
-        SlotsBuildingPlayer = new List<ActionSlot>();
-        SlotsBuildingAI = new List<ActionSlot>();
+        SlotsBuildingPlayer1 = new List<ActionSlot>();
+        SlotsBuildingPlayer2 = new List<ActionSlot>();
         Actions = new List<ActionItem>();
         for (int i = 0; i < amount; i++)
         {
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour
             {
                 slotId = i
             };
-            SlotsBuildingPlayer.Add(slot);
+            SlotsBuildingPlayer1.Add(slot);
         }
 
         ActionItem actionItem = new ActionItem
