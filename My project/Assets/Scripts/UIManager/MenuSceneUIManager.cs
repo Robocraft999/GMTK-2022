@@ -14,6 +14,8 @@ public class MenuSceneUIManager : MonoBehaviour
 
     public float rolls;
     public float rounds;
+    public float speed;
+    public float interval;
 
     public GameObject set_main;
     public GameObject set_options;
@@ -28,6 +30,8 @@ public class MenuSceneUIManager : MonoBehaviour
     {
         rolls = 2;
         rounds = 5;
+        speed = 2;
+        interval = 0.8f;
         set_main.SetActive(true);
         set_options.SetActive(false);
         HTP.SetActive(false);
@@ -48,6 +52,8 @@ public class MenuSceneUIManager : MonoBehaviour
     {
         rolls = GameObject.Find("sliderRolls").GetComponent<Slider>().value = 10;
         rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value = 5;
+        speed = GameObject.Find("sliderSpeed").GetComponent<Slider>().value = 2;
+        interval = GameObject.Find("sliderInterval").GetComponent<Slider>().value = 0.8f;
     }
 
     public void ButtonPressedHTP()
@@ -77,6 +83,12 @@ public class MenuSceneUIManager : MonoBehaviour
         GameObject.Find("rolls").GetComponent<TextMeshProUGUI>().text = rolls.ToString();
         rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value;
         GameObject.Find("rounds").GetComponent<TextMeshProUGUI>().text = rounds.ToString();
+        speed = GameObject.Find("sliderSpeed").GetComponent<Slider>().value;
+        GameObject.Find("speed").GetComponent<TextMeshProUGUI>().text = speed.ToString();
+        interval = GameObject.Find("sliderInterval").GetComponent<Slider>().value;
+        GameObject.Find("interval").GetComponent<TextMeshProUGUI>().text = Math.Round(interval, 1).ToString();
     }
 
 }
+
+

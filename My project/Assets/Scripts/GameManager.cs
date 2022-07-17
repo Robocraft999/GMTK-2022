@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
             print(input);
             yield return new WaitForSeconds(0.2f); 
             PerformActions(input);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(MenuSceneUIManager.Instance.interval);
 
             turns++;
             if (turns == MenuSceneUIManager.Instance.rolls) 
