@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private float shootPower = 40f;
 
     public TMP_Text scoreText;
-    private int score = 0;
+    private int score = 10;
     public int Score
     {
         get => score;

@@ -733,7 +733,9 @@ MonoBehaviour:
   ActionName: {fileID: 7785792768764903468}
   CostText: {fileID: 8571773558885848923}
   BuyerText: {fileID: 5680823077754400157}
+  BuyButton: {fileID: 3933089621011896502}
   player: {fileID: 0}
+  type: {fileID: 0}
 --- !u!1 &8551929781848386974
 GameObject:
   m_ObjectHideFlags: 0

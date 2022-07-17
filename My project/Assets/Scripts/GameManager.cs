@@ -182,4 +182,15 @@ public class GameManager : MonoBehaviour
     {
         return ActionTypes[random.Next(ActionTypes.Count)];
     }
+
+    public void AddAction(ActionType type, int index)
+    {
+        ActionItem actionItem = new ActionItem
+        {
+            Type = type
+        };
+        var actions = PlayerData[index].Value;
+        actions.Add(actionItem);
+        PlayerData[index] = new KeyValuePair<List<ActionSlot>, List<ActionItem>>(PlayerData[index].Key, actions);
+    }
 }
