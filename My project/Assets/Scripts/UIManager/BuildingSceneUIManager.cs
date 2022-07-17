@@ -51,6 +51,7 @@ public class BuildingSceneUIManager : MonoBehaviour
             {
                 ActionSlot actionSlot = Instantiate(ActionSlot, slots);
                 actionSlot.slotId = slot.slotId;
+                actionSlot.GetComponentInChildren<TMP_Text>().text = (i+1).ToString();
 
                 ActionItem action = null;
                 if (slot.CurrentItem is object)
