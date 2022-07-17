@@ -66,7 +66,7 @@ public class DiceUIManager : MonoBehaviour
                 );
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 2 * Time.deltaTime);
             }
-
+            stopSpeed = MenuSceneUIManager.Instance.speed;
             rotationSpeed = Vector3.Lerp(rotationSpeed, Vector3.zero, Time.deltaTime * stopSpeed);
             if(rotationSpeed.magnitude <= 0.03)//targetRotation == transform.rotation || 
             {
