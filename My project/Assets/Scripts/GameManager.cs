@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public System.Random random;
     private IEnumerator gameloop;
+    private int rounds;
 
     public List<ActionType> ActionTypes;
 
@@ -59,12 +60,20 @@ public class GameManager : MonoBehaviour
 
     void StartGameLoop(GameState oldState, GameState newState)
     {
-        if(newState == GameState.CLASH)
+        
+        if (newState == GameState.CLASH)
         {
             gameloop = Turn();
-            StartCoroutine(gameloop);
+            if (rounds < MenuSceneUIManager.Instance.rounds)
+            {
+                StartCoroutine(gameloop);
+            }
+            else
+            {
+                SwitchScene(GameState.MENU);
+            }
         }
-        else if(oldState == GameState.CLASH)
+        else if (oldState == GameState.CLASH)
         {
             StopCoroutine(gameloop);
         }
@@ -97,6 +106,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+        State = GameState.SHOP;
     }
 
     private void PerformActions(int input)
@@ -162,7 +172,7 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("Clash");
                 break;
             case GameState.SHOP:
-                SceneManager.LoadScene("Shop");
+                rounds++;
                 break;
         }
         State = newState;
