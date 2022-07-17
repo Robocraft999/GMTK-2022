@@ -39,6 +39,10 @@ public class ClashSceneUIManager : MonoBehaviour
         }
         ShopContainer.gameObject.SetActive(false);
         BuildingButton.SetActive(false);
+        Players = new List<PlayerController>();
+        Players.Add(GameObject.Find("Player1").GetComponent<PlayerController>());
+        Players.Add(GameObject.Find("Player2").GetComponent<PlayerController>());
+
     }
 
     public IEnumerator UITurn()

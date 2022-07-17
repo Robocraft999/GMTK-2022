@@ -1467,7 +1467,7 @@ PrefabInstance:
     - target: {fileID: 6779645629997106255, guid: 98f3c209a850cd54880f6011a6d97ab3, type: 3}
       propertyPath: scoreText
       value: 
-      objectReference: {fileID: 91453103}
+      objectReference: {fileID: 42182341}
     - target: {fileID: 6779645629997106258, guid: 98f3c209a850cd54880f6011a6d97ab3, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -2738,7 +2738,7 @@ PrefabInstance:
     - target: {fileID: 6779645629997106255, guid: 98f3c209a850cd54880f6011a6d97ab3, type: 3}
       propertyPath: scoreText
       value: 
-      objectReference: {fileID: 599524921}
+      objectReference: {fileID: 237147804}
     - target: {fileID: 6779645629997106258, guid: 98f3c209a850cd54880f6011a6d97ab3, type: 3}
       propertyPath: m_RootOrder
       value: 6

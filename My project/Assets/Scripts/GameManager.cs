@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     public List<ActionType> ActionTypes;
 
+    public Dictionary<string, int> scores = new Dictionary<string, int>();
+
     public List<KeyValuePair<List<ActionSlot>, List<ActionItem>>> PlayerData { get; set; }
     public int SlotAmount { get; private set; }
 
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
         {
             foreach(var player in ClashSceneUIManager.Instance.Players)
             {
-                player.Score += 50;
+                GameManager.Instance.scores[player.name] += 50;
             }
         }
     }

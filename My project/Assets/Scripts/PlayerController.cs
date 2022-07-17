@@ -22,12 +22,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        if (GameObject.Find(name)) Destroy(this);
-        DontDestroyOnLoad(this);
-    }
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,6 +46,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => projectile.IsTouching(other));
         other.GetComponent<Rigidbody2D>().AddForce(projectile.velocity);
         Destroy(projectile);
-        Score = +250;
+        GameManager.Instance.scores[name] += 250;
     }
 }
