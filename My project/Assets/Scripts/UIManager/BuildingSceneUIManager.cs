@@ -13,7 +13,9 @@ public class BuildingSceneUIManager : MonoBehaviour
     public ActionSlot ActionSlot;
     public GameObject buttonClash;
     public GameObject buttonNext;
-    public GameObject buttonBack;
+    public GameObject buttonPrevious;
+
+    private Transform slots;
 
     public int playerIndex { get; set; } = 0;
     
@@ -24,45 +26,66 @@ public class BuildingSceneUIManager : MonoBehaviour
 
     public void Start()
     {
+        buttonClash.SetActive(false);
+        buttonNext.SetActive(true);
+        buttonPrevious.SetActive(false);
         InitBuildingScene();
     }
 
-    public void LoadBuildingDeck(KeyValuePair<List<ActionSlot>, List<ActionItem>>  player, Transform slots)
+    public void LoadBuildingDeck(KeyValuePair<List<ActionSlot>, List<ActionItem>>  player)
     {
         var PlayerSlots = player.Key;
         var PlayerActions = player.Value;
+        int DiceSlotAmount = GameManager.Instance.SlotAmount;
+
+        ReloadSlots();
+
         List<ActionSlot> NewSlots = new List<ActionSlot>();
-        for (int i = 0; i < PlayerSlots.Count; i++)
+
+        int i;
+        for (i = 0; i < PlayerSlots.Count; i++)
         {
             ActionSlot slot = PlayerSlots[i];
 
-            ActionSlot actionSlot = Instantiate(ActionSlot, slots);
-            actionSlot.slotId = slot.slotId;
-
-            ActionItem action = null;
-            if (slot.CurrentItem != null)
+            if (i < DiceSlotAmount || (i >= DiceSlotAmount && slot.CurrentItem is object))
             {
-                action = InstantiateActionItem(actionSlot, (ActionItem)slot.CurrentItem);
-            }
-            actionSlot.CurrentItem = action;
+                ActionSlot actionSlot = Instantiate(ActionSlot, slots);
+                actionSlot.slotId = slot.slotId;
 
-            NewSlots.Add(actionSlot);
+                ActionItem action = null;
+                if (slot.CurrentItem is object)
+                {
+                    action = InstantiateActionItem(actionSlot, (ActionItem)slot.CurrentItem);
+                }
+                actionSlot.CurrentItem = action;
+
+
+                NewSlots.Add(actionSlot);
+            }
         }
 
-        int lastIndex = PlayerSlots[GameManager.Instance.SlotAmount - 1].slotId + 1;
-
+        List<ActionItem> NewActions = new List<ActionItem>();
+        int j = i;
         foreach (ActionItem action in PlayerActions.Where(item => item.currentSlot is null))
         {
+            i++;
             ActionSlot actionSlot = Instantiate(ActionSlot, slots);
-            actionSlot.slotId = lastIndex;
+            actionSlot.slotId = i;
 
             ActionItem actionItem = InstantiateActionItem(actionSlot, action);
             NewSlots.Add(actionSlot);
-
-            lastIndex++;
+            NewActions.Add(actionItem);
+        }
+        if(i == j)
+        {
+            i++;
+            ActionSlot actionSlot = Instantiate(ActionSlot, slots);
+            actionSlot.slotId = i;
+            NewSlots.Add(actionSlot);
         }
 
-        player = new KeyValuePair<List<ActionSlot>, List<ActionItem>>(NewSlots, PlayerActions);
+        int index = GameManager.Instance.PlayerData.IndexOf(player);
+        GameManager.Instance.PlayerData[index] = new KeyValuePair<List<ActionSlot>, List<ActionItem>>(NewSlots, NewActions);
     }
 
     private void InitBuildingScene()
@@ -70,7 +93,7 @@ public class BuildingSceneUIManager : MonoBehaviour
         //TODO FIX ME: Slots and SlotCanvas Object both have canvas components
         Canvas canvas = FindObjectOfType<Canvas>();
 
-        Transform slots = Instantiate(canvas.transform);
+        slots = Instantiate(canvas.transform);
         slots.name = "Slots";
         slots.SetParent(canvas.transform);
 
@@ -81,7 +104,7 @@ public class BuildingSceneUIManager : MonoBehaviour
         grid.spacing = new Vector2(10, 100); //TODO FIX ME!!!
         grid.padding = new RectOffset(20, 20, 20, 20);
 
-        LoadBuildingDeck(GameManager.Instance.PlayerData[playerIndex], slots);
+        LoadBuildingDeck(GameManager.Instance.PlayerData[playerIndex]);
     }
 
     private ActionItem InstantiateActionItem(ActionSlot slot, ActionItem parent)
@@ -93,6 +116,14 @@ public class BuildingSceneUIManager : MonoBehaviour
         slot.CurrentItem = actionItem;
 
         return actionItem;
+    }
+
+    private void ReloadSlots()
+    {
+        for(int i = 0; i < slots.childCount; i++)
+        {
+            Destroy(slots.GetChild(i).gameObject);
+        }
     }
 
     public void ButtonPressedBack()
@@ -107,12 +138,29 @@ public class BuildingSceneUIManager : MonoBehaviour
 
     public void ButtonPressedPrevious()
     {
-
+        playerIndex--;
+        buttonNext.SetActive(true);
+        if (playerIndex == 0)
+        {
+            buttonPrevious.SetActive(false);
+        }
+        if (playerIndex < GameManager.Instance.PlayerData.Count - 1)
+        {
+            buttonClash.SetActive(false);
+        }
+        LoadBuildingDeck(GameManager.Instance.PlayerData[playerIndex]);
     }
 
     public void ButtonPressedNext()
     {
-
+        playerIndex++;
+        buttonPrevious.SetActive(true);
+        if (playerIndex == GameManager.Instance.PlayerData.Count - 1)
+        {
+            buttonNext.SetActive(false);
+            buttonClash.SetActive(true);
+        }
+        LoadBuildingDeck(GameManager.Instance.PlayerData[playerIndex]);
     }
 
 

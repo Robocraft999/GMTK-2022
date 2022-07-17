@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-        State = GameState.SHOP;
+        SwitchScene(GameState.SHOP);
     }
 
     private void PerformActions(int input)

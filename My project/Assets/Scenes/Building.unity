@@ -1387,7 +1387,7 @@ MonoBehaviour:
   ActionSlot: {fileID: 8676011221077964266, guid: 9f2f8a7557f85b645ad0e45476731346, type: 3}
   buttonClash: {fileID: 1812590179}
   buttonNext: {fileID: 93686743}
-  buttonBack: {fileID: 2143901965}
+  buttonPrevious: {fileID: 564205948}
 --- !u!4 &1270185458
 Transform:
   m_ObjectHideFlags: 0
