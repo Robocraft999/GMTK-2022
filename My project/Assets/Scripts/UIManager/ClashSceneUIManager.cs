@@ -14,19 +14,17 @@ public class ClashSceneUIManager : MonoBehaviour
 
     public int fadeTimeDOF;
 
-    //public List<KeyValuePair<PlayerController, List<ActionSlot>>> Players { get; private set; }
-    public List<PlayerController> Players { get; private set; }
+    public List<PlayerController> Players;
 
     public void Awake()
     {
         Instance = this;
+        GameManager.Instance.OnStateChange += OnStateChanged;
     }
 
     public void Start()
     {
         StartCoroutine(DisableDice());
-        PlayerController[] players = FindObjectsOfType<PlayerController>();
-        Players = new List<PlayerController>(players);
     }
     public IEnumerator UITurn()
     {
@@ -36,9 +34,29 @@ public class ClashSceneUIManager : MonoBehaviour
         yield return diceUIManager.Result;
     }
 
+    private void OnStateChanged(GameState oldS, GameState newS)
+    {
+        if(newS == GameState.SHOP)
+        {
+            foreach(GameObject o in GameObject.FindGameObjectsWithTag("ClashNoShop"))
+            {
+                o.SetActive(false);
+            }
+            foreach (GameObject o in GameObject.FindGameObjectsWithTag("ClashShop"))
+            {
+                o.SetActive(true);
+            }
+            InitShop();
+        }
+    }
+
+    private void InitShop()
+    {
+
+    }
+
     private IEnumerator EnableDice()
     { 
-        //postProcessVolume.enabled = true;
         DepthOfField setting = postProcessVolume.profile.GetSetting<DepthOfField>();
         setting.focusDistance.Override(10);
         for (float i = 0; i < fadeTimeDOF + 1; i++)
@@ -61,7 +79,6 @@ public class ClashSceneUIManager : MonoBehaviour
             setting.focusDistance.Interp(2, 10, i / fadeTimeDOF);
             yield return new WaitForSeconds(0.5f / fadeTimeDOF);
         }
-        //postProcessVolume.enabled = false;
         yield return null;
     }
 }

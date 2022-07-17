@@ -119,11 +119,11 @@ public class GameManager : MonoBehaviour
     private void PerformAction(PlayerController player, int input)
     {
         List<ActionSlot> slots = PlayerData[ClashSceneUIManager.Instance.Players.IndexOf(player)].Key;//TODO FIX ME
-        foreach (ActionSlot slot in slots.Where(slot => slot.slotId == input).Where(slot => (object)slot.CurrentItem != null))
+        foreach (ActionSlot slot in slots.Where(slot => slot.slotId + 1 == input).Where(slot => (object)slot.CurrentItem != null))
         {
             ActionType type = ((ActionItem)slot.CurrentItem).Type;
             if (type.ApplyForce) player.ApplyForce(type.Force);
-            if (type.Attack) player.Attack();
+            if (type.Attack) player.Attack(new List<PlayerController>(FindObjectsOfType<PlayerController>()).Where(p => p != player).ToList()[0].gameObject);
         }
     }
 

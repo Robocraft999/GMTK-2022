@@ -41,6 +41,7 @@ public class BuildingSceneUIManager : MonoBehaviour
         ReloadSlots();
 
         List<ActionSlot> NewSlots = new List<ActionSlot>();
+        List<ActionItem> NewActions = new List<ActionItem>();
 
         int i;
         for (i = 0; i < PlayerSlots.Count; i++)
@@ -58,6 +59,7 @@ public class BuildingSceneUIManager : MonoBehaviour
                 if (slot.CurrentItem is object)
                 {
                     action = InstantiateActionItem(actionSlot, (ActionItem)slot.CurrentItem);
+                    NewActions.Add(action);
                 }
                 actionSlot.CurrentItem = action;
 
@@ -65,8 +67,7 @@ public class BuildingSceneUIManager : MonoBehaviour
                 NewSlots.Add(actionSlot);
             }
         }
-
-        List<ActionItem> NewActions = new List<ActionItem>();
+        
         int j = i;
         foreach (ActionItem action in PlayerActions.Where(item => item.currentSlot is null))
         {
@@ -86,8 +87,7 @@ public class BuildingSceneUIManager : MonoBehaviour
             NewSlots.Add(actionSlot);
         }
 
-        int index = GameManager.Instance.PlayerData.IndexOf(player);
-        GameManager.Instance.PlayerData[index] = new KeyValuePair<List<ActionSlot>, List<ActionItem>>(NewSlots, NewActions);
+        GameManager.Instance.PlayerData[playerIndex] = new KeyValuePair<List<ActionSlot>, List<ActionItem>>(NewSlots, NewActions);
     }
 
     private void InitBuildingScene()

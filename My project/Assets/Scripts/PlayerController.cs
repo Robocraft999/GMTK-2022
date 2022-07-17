@@ -5,7 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+    public Rigidbody2D ProjectilePrefab;
+    private float shootPower = 40f;
 
     void Start()
     {
@@ -15,11 +17,21 @@ public class PlayerController : MonoBehaviour
     public void ApplyForce(Vector2 force)
     {
         rb.AddForce(force);
-        print("Force: " + force);
     }
 
-    public void Attack()
+    public void Attack(GameObject other)
     {
-        print("ATTACKEEEEEEEEE");
+        Vector3 dir = other.transform.position - transform.position;
+        Vector3 extend = new Vector3(GetComponent<Collider2D>().bounds.extents.x, 0, 0) * dir.normalized.x;
+        Rigidbody2D projectile = Instantiate(ProjectilePrefab, transform.position + extend, transform.rotation);
+        projectile.AddForce(dir * shootPower);
+        StartCoroutine(ProjectileTravelHandler(projectile, other.GetComponent<Collider2D>()));
+    }
+
+    public IEnumerator ProjectileTravelHandler(Rigidbody2D projectile, Collider2D other)
+    {
+        yield return new WaitUntil(() => projectile.IsTouching(other));
+        other.GetComponent<Rigidbody2D>().AddForce(projectile.velocity);
+        Destroy(projectile);
     }
 }
