@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(2);
 
             turns++;
-            if(turns == 20)
+            if (turns == GameObject.Find("MenuSceneUIManager").GetComponent<MenuSceneUIManager>().rolls) 
             {
                 break;
             }
