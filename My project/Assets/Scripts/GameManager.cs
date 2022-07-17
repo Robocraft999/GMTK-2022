@@ -85,26 +85,20 @@ public class GameManager : MonoBehaviour
         ClashSceneUIManager.Instance.InitPlayers(SlotsBuildingPlayer, SlotsBuildingAI);
         while (true)
         {
-            yield return new WaitForSeconds(0.3f);
+            IEnumerator enumerator = ClashSceneUIManager.Instance.UITurn();
+            yield return enumerator;
 
-            PlayerController player1 = ClashSceneUIManager.Instance.Players[0].Key;
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = Camera.main.nearClipPlane;
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-            Vector3 dist = worldPosition - player1.transform.position;
-            print(dist);
-
-            if (Input.GetMouseButton(0))
-            {
-                //player1.applyForce(dist * 30);
-            }
-            
-                
             int input = random.Next(SlotAmount);
+            if (enumerator.Current is int value)
+            {
+                if (value >= 0) input = value;
+                else Debug.LogWarning("Could not determine result of dice");
+            }
 
             print(input);
-
+            yield return new WaitForSeconds(1);
             PerformActions(input);
+            yield return new WaitForSeconds(2);
 
             turns++;
             if(turns == 20)

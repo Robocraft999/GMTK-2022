@@ -54,10 +54,10 @@ public class MenuSceneUIManager : MonoBehaviour
 
     public void UpdateSliderText()
     {
-        rolls = GameObject.Find("sliderRolls").GetComponent<Slider>().value;
+        /*rolls = GameObject.Find("sliderRolls").GetComponent<Slider>().value;
         GameObject.Find("rolls").GetComponent<TextMeshProUGUI>().text = rolls.ToString();
         rounds = GameObject.Find("sliderRounds").GetComponent<Slider>().value;
-        GameObject.Find("rounds").GetComponent<TextMeshProUGUI>().text = rounds.ToString();
+        GameObject.Find("rounds").GetComponent<TextMeshProUGUI>().text = rounds.ToString();*/
     }
 
 }

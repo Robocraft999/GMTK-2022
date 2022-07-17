@@ -5,31 +5,24 @@ using UnityEngine;
 public class DiceUIManager : MonoBehaviour
 {
     public Transform dice;
-    private Vector3 rotationSpeed;
+    public Camera diceCam;
     public float stopSpeed;
-    private Quaternion targetRotation;
 
     public DiceUIManager Instance { get; private set; }
     private IEnumerator rotator = null;
 
+    private Quaternion targetRotation;
+    private Vector3 rotationSpeed;
+    public int Result { get; private set; } = -1;
+
     void Start()
     {
         Instance = this;
-
-        //StartRotate();
     }
 
-    private bool MouseDown()
+    public bool IsRotating()
     {
-        return Input.GetMouseButton(0);
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartRotate();
-        }
+        return rotator != null;
     }
 
     public void StartRotate()
@@ -43,9 +36,19 @@ public class DiceUIManager : MonoBehaviour
         }
     }
 
+    private int CalcResult()
+    {
+        Ray ray2 = new Ray(diceCam.transform.position, dice.position - diceCam.transform.position);
+        if (Physics.Raycast(ray2, out var hit))
+        {
+            if(int.TryParse(hit.transform.gameObject.name, out var result))
+            return result;
+        }
+        return -1;
+    }
+
     private IEnumerator Rotator()
     {
-        //yield return new WaitUntil(MouseDown);
         while (true)
         {
             yield return new WaitForFixedUpdate();
@@ -65,10 +68,10 @@ public class DiceUIManager : MonoBehaviour
             }
 
             rotationSpeed = Vector3.Lerp(rotationSpeed, Vector3.zero, Time.deltaTime * stopSpeed);
-            //if(rotationSpeed == Vector3.zero)
-            if(transform.rotation == targetRotation || rotationSpeed == Vector3.zero)
+            if(rotationSpeed.magnitude <= 0.03)//targetRotation == transform.rotation || 
             {
                 transform.rotation = targetRotation;
+                Result = CalcResult();
                 StopCoroutine(rotator);
                 rotator = null;
             }

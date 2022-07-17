@@ -1127,7 +1127,7 @@ GameObject:
   - component: {fileID: 736687925}
   - component: {fileID: 736687924}
   m_Layer: 6
-  m_Name: Bottom
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1280,7 +1280,7 @@ GameObject:
   - component: {fileID: 897796163}
   - component: {fileID: 897796162}
   m_Layer: 6
-  m_Name: Left
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1376,7 +1376,7 @@ GameObject:
   - component: {fileID: 898274237}
   - component: {fileID: 898274236}
   m_Layer: 6
-  m_Name: Back
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1391,7 +1391,7 @@ Transform:
   m_GameObject: {fileID: 898274234}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -2}
-  m_LocalScale: {x: 0.40000004, y: 0.39999995, z: 0.39999995}
+  m_LocalScale: {x: 0.40000004, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 1582809670}
   m_RootOrder: 5
@@ -1616,7 +1616,7 @@ GameObject:
   - component: {fileID: 1120485724}
   - component: {fileID: 1120485723}
   m_Layer: 6
-  m_Name: Top
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1712,7 +1712,7 @@ GameObject:
   - component: {fileID: 1221153489}
   - component: {fileID: 1221153488}
   m_Layer: 6
-  m_Name: Right
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1811,7 +1811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1582809670
 Transform:
   m_ObjectHideFlags: 0
@@ -1845,6 +1845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dice: {fileID: 1582809670}
+  diceCam: {fileID: 404362438}
   stopSpeed: 1
 --- !u!1 &1652870086
 GameObject:
@@ -1875,7 +1876,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.6
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1912,7 +1913,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -2057,6 +2058,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c2b3865a8547b40a873a3c93813287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  postProcessVolume: {fileID: 330480387}
+  diceUIManager: {fileID: 1582809671}
+  fadeTimeDOF: 100
 --- !u!1 &2017364916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2070,7 +2074,7 @@ GameObject:
   - component: {fileID: 2017364919}
   - component: {fileID: 2017364918}
   m_Layer: 6
-  m_Name: Front
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2085,7 +2089,7 @@ Transform:
   m_GameObject: {fileID: 2017364916}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 0.40000004, y: 0.39999995, z: 0.39999995}
+  m_LocalScale: {x: 0.40000004, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 1582809670}
   m_RootOrder: 2
