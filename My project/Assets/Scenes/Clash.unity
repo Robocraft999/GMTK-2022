@@ -1138,7 +1138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &625465719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1147,8 +1147,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625465718}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4049.3687}
-  m_LocalScale: {x: 40.099995, y: 40.099995, z: 40.099995}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1889158608}
   m_Father: {fileID: 690867741}
@@ -1156,7 +1156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16039.999, y: 1361.9935}
+  m_AnchoredPosition: {x: 0, y: -154}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625465720
@@ -2178,7 +2178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1492224888
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2622,6 +2622,8 @@ MonoBehaviour:
   postProcessVolume: {fileID: 330480387}
   diceUIManager: {fileID: 1582809671}
   ShopItem: {fileID: 535143841502738191, guid: 590b7ab0537ee254190e10af14363909, type: 3}
+  ShopContainer: {fileID: 1492224888}
+  BuildingButton: {fileID: 625465718}
   fadeTimeDOF: 100
   Players:
   - {fileID: 6779645630055155811}

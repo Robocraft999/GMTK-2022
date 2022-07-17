@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private float shootPower = 40f;
 
     public TMP_Text scoreText;
-    private int score = 10;
+    private int score = 0;
     public int Score
     {
         get => score;
@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour
             score = value;
             if (scoreText) scoreText.text = "" + value;
         }
+    }
+
+    private void Awake()
+    {
+        if (GameObject.Find(name)) Destroy(this);
+        DontDestroyOnLoad(this);
     }
 
     void Start()
