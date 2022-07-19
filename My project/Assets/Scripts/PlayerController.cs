@@ -46,6 +46,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => projectile.IsTouching(other));
         other.GetComponent<Rigidbody2D>().AddForce(projectile.velocity);
         Destroy(projectile);
-        GameManager.Instance.ChangeScore(name, 250);
+        GameManager.Instance.ChangeScore(this, 250);
     }
 }
