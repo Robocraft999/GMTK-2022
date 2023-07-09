@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public DragSlot currentSlot;
-    private Canvas canvas;
-    private GraphicRaycaster graphicRaycaster;
+    protected Canvas canvas;
+    protected GraphicRaycaster graphicRaycaster;
 
-    public void OnBeginDrag(PointerEventData data)
+    public virtual void OnBeginDrag(PointerEventData data)
     {
         transform.SetParent(canvas.transform, false);
         transform.SetAsLastSibling();
@@ -24,7 +24,7 @@ public class DragItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         transform.position = Input.mousePosition;
     }
 
-    public void OnEndDrag(PointerEventData data)
+    public virtual void OnEndDrag(PointerEventData data)
     {
         var results = new List<RaycastResult>();
         graphicRaycaster.Raycast(data, results);

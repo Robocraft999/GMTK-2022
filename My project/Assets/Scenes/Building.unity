@@ -1519,7 +1519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionPrefab: {fileID: 8556151439317811352, guid: ca9838e17b58a12489fdbf9b5d1ba72e, type: 3}
-  ActionSlot: {fileID: 8676011221077964266, guid: 9f2f8a7557f85b645ad0e45476731346, type: 3}
+  ActionSlot: {fileID: 6737394592677534612, guid: 9f2f8a7557f85b645ad0e45476731346, type: 3}
   buttonClash: {fileID: 1812590179}
   buttonNext: {fileID: 93686743}
   buttonPrevious: {fileID: 564205948}

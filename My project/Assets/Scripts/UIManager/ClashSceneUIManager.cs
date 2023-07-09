@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
@@ -14,10 +15,9 @@ public class ClashSceneUIManager : MonoBehaviour
     public ShopItem ShopItem;
     public Transform ShopContainer;
     public GameObject BuildingButton;
+    public List<TMP_Text> ScoreTexts;
 
     public int fadeTimeDOF;
-
-    public List<PlayerController> Players;
 
     public void Awake()
     {
@@ -39,10 +39,7 @@ public class ClashSceneUIManager : MonoBehaviour
         }
         ShopContainer.gameObject.SetActive(false);
         BuildingButton.SetActive(false);
-        Players = new List<PlayerController>();
-        Players.Add(GameObject.Find("Player1").GetComponent<PlayerController>());
-        Players.Add(GameObject.Find("Player2").GetComponent<PlayerController>());
-
+        UpdateScoreText();
     }
 
     public IEnumerator UITurn()
@@ -69,7 +66,7 @@ public class ClashSceneUIManager : MonoBehaviour
 
     private void InitShop()
     {
-        foreach(var player in Players)
+        foreach(var player in GameManager.Instance.Players)
         {
             for(int i = 0; i < 4; i++)
             {
@@ -114,5 +111,14 @@ public class ClashSceneUIManager : MonoBehaviour
     public void BackToBuilding()
     {
         GameManager.Instance.SwitchScene(GameState.BUILDING);
+    }
+
+    public void UpdateScoreText()
+    {
+        for(int i = 0; i < ScoreTexts.Count; i++)
+        {
+            var player = GameManager.Instance.Players[i];
+            ScoreTexts[i].text = player.Score.ToString();
+        }
     }
 }

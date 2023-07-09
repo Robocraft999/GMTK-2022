@@ -29,9 +29,8 @@ public class GameManager : MonoBehaviour
 
     public List<ActionType> ActionTypes;
 
-    public Dictionary<string, int> scores = new Dictionary<string, int>();
+    public List<PlayerController> Players;
 
-    public List<KeyValuePair<List<ActionSlot>, List<ActionItem>>> PlayerData { get; set; }
     public int SlotAmount { get; private set; }
 
     
@@ -54,13 +53,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         m_state = GameState.MENU;
-        OnStateChange += StartGameLoop;
+        OnStateChange += StateChangeHandler;
 
         SlotAmount = 6;
         InitActions(SlotAmount);
     }
 
-    void StartGameLoop(GameState oldState, GameState newState)
+    void StateChangeHandler(GameState oldState, GameState newState)
     {
         if (newState == GameState.CLASH)
         {
@@ -68,6 +67,7 @@ public class GameManager : MonoBehaviour
             if (rounds < MenuSceneUIManager.Instance.rounds)
             {
                 StartCoroutine(gameloop);
+                foreach (var player in Players) player.Activate(true);
             }
             else
             {
@@ -76,13 +76,14 @@ public class GameManager : MonoBehaviour
         }
         else if (oldState == GameState.CLASH)
         {
+            foreach (var player in Players) player.Activate(false);
             StopCoroutine(gameloop);
         }
         if(newState == GameState.SHOP)
         {
-            foreach(var player in ClashSceneUIManager.Instance.Players)
+            foreach(var player in Players)
             {
-                ChangeScore(player, 50);
+                player.AddScore(50);
             }
         }
     }
@@ -104,7 +105,7 @@ public class GameManager : MonoBehaviour
             }
 
             yield return new WaitForSeconds(0.2f); 
-            PerformActions(input);
+            yield return PerformActions(input);
             yield return new WaitForSeconds(MenuSceneUIManager.Instance.interval);
 
             turns++;
@@ -116,55 +117,23 @@ public class GameManager : MonoBehaviour
         SwitchScene(GameState.SHOP);
     }
 
-    private void PerformActions(int input)
+    private IEnumerator PerformActions(int input)
     {
-        foreach(var player in ClashSceneUIManager.Instance.Players)
+        foreach(var player in Players)
         {
-            PerformAction(player, input);
+            yield return player.PerformAction(input);
         }
     }
 
-    private void PerformAction(PlayerController player, int input)
-    {
-        List<ActionSlot> slots = PlayerData[ClashSceneUIManager.Instance.Players.IndexOf(player)].Key;//TODO FIX ME
-        foreach (ActionSlot slot in slots.Where(slot => slot.slotId + 1 == input).Where(slot => (object)slot.CurrentItem != null))
-        {
-            ActionType type = ((ActionItem)slot.CurrentItem).Type;
-            if (type.ApplyForce) player.ApplyForce(type.Force);
-            if (type.Attack) player.Attack(new List<PlayerController>(FindObjectsOfType<PlayerController>()).Where(p => p != player).ToList()[0].gameObject);
-        }
-    }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Type Safety", "UNT0010:Component instance creation", Justification = "<Pending>")]
     private void InitActions(int amount)
     {
-        PlayerData = new List<KeyValuePair<List<ActionSlot>, List<ActionItem>>>();
-        //amount of players
-        for (int i = 0; i < 2; i++)
+        foreach(var player in Players)
         {
-            List<ActionItem> actions = new List<ActionItem>();
-            List<ActionSlot> slots = new List<ActionSlot>();
-            for (int j = 0; j < amount; j++)
-            {
-                ActionSlot slot = new ActionSlot
-                {
-                    slotId = j
-                };
-                slots.Add(slot);
-            }
-
-            ActionItem actionItem = new ActionItem
-            {
-                Type = RandomAction()
-            };
-            actions.Add(actionItem);
-
-            PlayerData.Add(new KeyValuePair<List<ActionSlot>, List<ActionItem>>(slots, actions));
+            player.InitActions(amount);
         }
     }
 
 
-    //Util functions
     public void SwitchScene(GameState newState)
     {
         switch (newState)
@@ -186,26 +155,8 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void ChangeScore(PlayerController player, int amount)
-    {
-        if(scores.ContainsKey(player.name))scores[player.name] += amount;
-        else scores.Add(player.name, amount);
-        player.scoreText.text = scores[player.name].ToString();
-    }
-
     public ActionType RandomAction()
     {
         return ActionTypes[random.Next(ActionTypes.Count)];
-    }
-
-    public void AddAction(ActionType type, int index)
-    {
-        ActionItem actionItem = new ActionItem
-        {
-            Type = type
-        };
-        var actions = PlayerData[index].Value;
-        actions.Add(actionItem);
-        PlayerData[index] = new KeyValuePair<List<ActionSlot>, List<ActionItem>>(PlayerData[index].Key, actions);
     }
 }
